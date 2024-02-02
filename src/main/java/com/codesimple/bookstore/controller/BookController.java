@@ -46,4 +46,10 @@ public APIResponse getBookByRawQuery(@RequestParam(value = "yearOfPublications")
         return  bookService.getBookByRawQuery(yop);
 }
 
+@GetMapping("/caughtException")
+public APIResponse getCaughtException(@RequestParam(value = "number") Integer yop){
+    return  bookService.getCaughtException(yop);
+}
+
+
 }

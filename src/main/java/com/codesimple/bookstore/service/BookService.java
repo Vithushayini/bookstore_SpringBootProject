@@ -122,4 +122,11 @@ public class BookService {
     }
 
 
+    public APIResponse getCaughtException(Integer yop) {
+        int result=100/yop;
+
+        APIResponse response=new APIResponse();
+        response.setData(result);
+        return response;
+    }
 }
