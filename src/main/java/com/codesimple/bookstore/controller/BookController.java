@@ -1,5 +1,6 @@
 package com.codesimple.bookstore.controller;
 
+import com.codesimple.bookstore.common.APIResponse;
 import com.codesimple.bookstore.dto.BookDTO;
 import com.codesimple.bookstore.entity.Book;
 import com.codesimple.bookstore.service.BookService;
@@ -41,7 +42,7 @@ public String deleteBookById(@PathVariable Long bookid){
 }
 
 @GetMapping("/raw/books")
-public List<Book> getBookByRawQuery(@RequestParam(value = "yearOfPublications") Set <Integer> yop){
+public APIResponse getBookByRawQuery(@RequestParam(value = "yearOfPublications") Set <Integer> yop){
         return  bookService.getBookByRawQuery(yop);
 }
 

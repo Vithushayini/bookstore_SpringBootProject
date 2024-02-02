@@ -1,5 +1,7 @@
 package com.codesimple.bookstore.service;
 
+import com.codesimple.bookstore.common.APIResponse;
+import com.codesimple.bookstore.data.BookData;
 import com.codesimple.bookstore.dto.AuthorDTO;
 import com.codesimple.bookstore.dto.BookDTO;
 import com.codesimple.bookstore.entity.Author;
@@ -104,9 +106,19 @@ public class BookService {
     }
 
     //raw query -get books
-    public List<Book> getBookByRawQuery(Set<Integer> yop){
+    public APIResponse getBookByRawQuery(Set<Integer> yop){
+        APIResponse apiResponse=new APIResponse();
+
+        //db call
         List<Book> bookList=bookRepository.findAllByYearOfPublicationIn(yop);
-        return bookList;
+
+        //setData
+        BookData bookData=new BookData();
+        bookData.setBooks(bookList);
+
+        //set api response
+        apiResponse.setData(bookData);
+        return apiResponse;
     }
 
 
