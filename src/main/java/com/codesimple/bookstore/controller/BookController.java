@@ -40,9 +40,9 @@ public String deleteBookById(@PathVariable Long bookid){
    return bookService.deleteByBookId(bookid);
 }
 
-//@GetMapping("/raw/books")
-//public List<Book> getBookByRawQuery(Set <Integer> yop){
-//        return  BookService.getBookByRawQuery(yop);
-//}
+@GetMapping("/raw/books")
+public List<Book> getBookByRawQuery(@RequestParam(value = "yearOfPublications") Set <Integer> yop){
+        return  bookService.getBookByRawQuery(yop);
+}
 
 }

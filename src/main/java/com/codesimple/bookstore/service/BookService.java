@@ -102,4 +102,12 @@ public class BookService {
         bookRepository.deleteById(bookid);
         return "book deleted successfully";
     }
+
+    //raw query -get books
+    public List<Book> getBookByRawQuery(Set<Integer> yop){
+        List<Book> bookList=bookRepository.findAllByYearOfPublicationIn(yop);
+        return bookList;
+    }
+
+
 }
