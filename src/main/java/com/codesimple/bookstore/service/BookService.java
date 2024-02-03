@@ -1,6 +1,7 @@
 package com.codesimple.bookstore.service;
 
 import com.codesimple.bookstore.common.APIResponse;
+import com.codesimple.bookstore.common.Error;
 import com.codesimple.bookstore.data.BookData;
 import com.codesimple.bookstore.dto.AuthorDTO;
 import com.codesimple.bookstore.dto.BookDTO;
@@ -9,6 +10,7 @@ import com.codesimple.bookstore.entity.Book;
 import com.codesimple.bookstore.entity.BookAuthor;
 import com.codesimple.bookstore.repo.BookAuthorRepository;
 import com.codesimple.bookstore.repo.BookRepository;
+import com.codesimple.bookstore.validator.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class BookService {
 
    @Autowired
    private BookAuthorRepository bookAuthorRepository;
+
+   @Autowired
+   private BookValidator bookValidator;
 
 //    public static List<Book> getBookByRawQuery(Set<Integer> yop) {
 //        List<Book> bookList=BookRepository.findAllByYearOfPublicationIn(yop);
@@ -40,6 +45,18 @@ public class BookService {
     }
 
     public Book createBook(Book book){
+
+        //validation
+        List<Error> errors=bookValidator.validateCreateBookRequest(book);
+
+
+        //if not success
+        if(errors.size()>0){
+
+        }
+
+
+        //if success
         return bookRepository.save(book);
     }
 
