@@ -32,6 +32,6 @@ public class BookValidator {
         }
 
 
-        return null;
+        return errors;
     }
 }

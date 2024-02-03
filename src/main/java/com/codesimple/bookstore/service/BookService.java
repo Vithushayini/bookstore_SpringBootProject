@@ -1,6 +1,7 @@
 package com.codesimple.bookstore.service;
 
 import com.codesimple.bookstore.common.APIResponse;
+import com.codesimple.bookstore.common.BadRequestException;
 import com.codesimple.bookstore.common.Error;
 import com.codesimple.bookstore.data.BookData;
 import com.codesimple.bookstore.dto.AuthorDTO;
@@ -52,7 +53,7 @@ public class BookService {
 
         //if not success
         if(errors.size()>0){
-
+            throw new BadRequestException("bad request",errors);
         }
 
 
