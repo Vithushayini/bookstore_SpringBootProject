@@ -3,6 +3,8 @@ package com.codesimple.bookstore.repo;
 import com.codesimple.bookstore.entity.Book;
 import com.codesimple.bookstore.entity.QBook;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -33,8 +35,8 @@ public class BookRepositoryImpl implements BookRepositoryCustom{
 
         //select id,bookType from book where year_of_publication = year;
 
-        //return
-        List<Tuple> tuples=jpaQuery
+        //method1 using tuple
+        /*List<Tuple> tuples=jpaQuery
                 .select(qBook.id,qBook.bookType)
                 .from(qBook)
                 .where(qBook.yearOfPublication.eq(year))
@@ -50,8 +52,22 @@ public class BookRepositoryImpl implements BookRepositoryCustom{
             book.setBookType(eachTuple.get(qBook.bookType));
 
             books.add(book);
-        }
+        }*/
 
+
+        //method2 using projection
+        QBean<Book> bookQBean= Projections.bean(Book.class,
+                qBook.id,
+                qBook.bookType
+        );
+
+        List<Book> books=jpaQuery
+                .select(bookQBean)
+                .from(qBook)
+                .where(qBook.yearOfPublication.eq(year))
+                .fetch();
+
+        //return
         return books;
     }
 
