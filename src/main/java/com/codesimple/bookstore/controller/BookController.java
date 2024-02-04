@@ -51,5 +51,10 @@ public APIResponse getCaughtException(@RequestParam(value = "number") Integer yo
     return  bookService.getCaughtException(yop);
 }
 
+@GetMapping("/queryDsl/books")
+public APIResponse getBooksByQueryDsl(@RequestParam(value = "year") Integer year){
+        return bookService.getBooksByQueryDsl(year);
+}
+
 
 }
