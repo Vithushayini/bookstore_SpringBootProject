@@ -1,5 +1,6 @@
 package com.codesimple.bookstore.repo;
 
+import com.codesimple.bookstore.dto.BookQueryDslDTO;
 import com.codesimple.bookstore.entity.Book;
 import com.codesimple.bookstore.entity.QBook;
 import com.querydsl.core.Tuple;
@@ -68,6 +69,25 @@ public class BookRepositoryImpl implements BookRepositoryCustom{
                 .fetch();
 
         //return
+        return books;
+    }
+
+    @Override
+    public List<BookQueryDslDTO> getAllBooksByQueryDslDto(Integer year) {
+        //query dsl
+        JPAQuery<BookQueryDslDTO> jpaQuery=new JPAQuery<>(em);
+
+        QBean<BookQueryDslDTO> dslDTOQBean=Projections.bean(BookQueryDslDTO.class,
+                qBook.id,
+                qBook.bookType.as("type")
+        );
+
+        List<BookQueryDslDTO> books=jpaQuery
+                .select(dslDTOQBean)
+                .from(qBook)
+                .where(qBook.yearOfPublication.eq(year))
+                .fetch();
+
         return books;
     }
 
