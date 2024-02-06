@@ -5,15 +5,22 @@ import com.codesimple.bookstore.dto.LoginRequestDTO;
 import com.codesimple.bookstore.dto.SignUpRequestDTO;
 import com.codesimple.bookstore.entity.User;
 import com.codesimple.bookstore.repo.UserRepository;
+import com.codesimple.bookstore.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class LoginService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
     public APIResponse signUp(SignUpRequestDTO signUpRequestDTO) {
         APIResponse apiResponse=new APIResponse();
 
@@ -32,7 +39,14 @@ public class LoginService {
         userEntity=userRepository.save(userEntity);
 
         //return
-        apiResponse.setData(userEntity);
+        //generate jwt
+        String token=jwtUtils.generateJwt(userEntity);
+
+        Map<String, Object> data=new HashMap<>();
+        data.put("accessToken",token);
+
+
+        apiResponse.setData(data);
 
         return apiResponse;
     }
@@ -49,10 +63,17 @@ public class LoginService {
         //response
         if(user==null){
             apiResponse.setData("User login failed");
+            return apiResponse;
         }
-        else {
-            apiResponse.setData("user logged in");
-        }
+
+        //generate jwt
+        String token=jwtUtils.generateJwt(user);
+
+        Map<String, Object> data=new HashMap<>();
+        data.put("accessToken",token);
+
+
+        apiResponse.setData(data);
 
         return apiResponse;
     }
