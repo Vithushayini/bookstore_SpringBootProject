@@ -1,5 +1,6 @@
 package com.codesimple.bookstore.util;
 
+import com.codesimple.bookstore.common.AccessDeniedException;
 import com.codesimple.bookstore.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ClaimsBuilder;
@@ -41,6 +42,19 @@ public class JwtUtils {
                 .setClaims(claims.build())
                 .signWith(SignatureAlgorithm.HS512,secret)
                 .compact();
+
+    }
+
+    public void verify(String authorization) throws Exception {
+
+        try {
+            Jwts.parser()
+                    .setSigningKey(secret)
+                    .build()
+                    .parseSignedClaims(authorization);
+        }catch (Exception e){
+            throw new AccessDeniedException("Access Denied");
+        }
 
     }
 }

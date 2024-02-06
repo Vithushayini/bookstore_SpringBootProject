@@ -7,7 +7,9 @@ import com.codesimple.bookstore.entity.User;
 import com.codesimple.bookstore.repo.UserRepository;
 import com.codesimple.bookstore.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -77,4 +79,5 @@ public class LoginService {
 
         return apiResponse;
     }
+
 }
