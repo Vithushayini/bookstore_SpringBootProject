@@ -43,7 +43,14 @@
             <version>2.10.5</version>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa &ndash;&gt;-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>2.12.2</version> <!-- Use the version that matches your Jackson version -->
+        </dependency>
+
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>com.querydsl</groupId>-->
 <!--            <artifactId>querydsl-jpa</artifactId>-->
