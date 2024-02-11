@@ -45,13 +45,16 @@ public class JwtUtils {
 
     }
 
-    public void verify(String authorization) throws Exception {
+    public Claims verify(String authorization) throws Exception {
 
         try {
-            Jwts.parser()
+            Claims claims=Jwts.parser()
                     .setSigningKey(secret)
                     .build()
-                    .parseSignedClaims(authorization);
+                    .parseSignedClaims(authorization).getBody();
+
+            System.out.println(claims.get("name"));
+            return claims;
         }catch (Exception e){
             throw new AccessDeniedException("Access Denied");
         }
