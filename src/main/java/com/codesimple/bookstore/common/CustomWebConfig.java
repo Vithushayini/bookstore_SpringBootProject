@@ -45,6 +45,9 @@ public class CustomWebConfig implements WebMvcConfigurer {
         resolvers.add(pageResolver);
     }
 
+    public CustomWebConfig(JwtInterCeptor jwtInterCeptor){
+        this.jwtInterCeptor=jwtInterCeptor;
+    }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterCeptor);
@@ -56,8 +59,8 @@ public class CustomWebConfig implements WebMvcConfigurer {
         return new RequestMeta();
     }
 
-    @Bean
-    public JwtInterCeptor jwtInterCeptor(){
-        return new JwtInterCeptor(getRequestMeta());
-    }
+//    @Bean
+//    public JwtInterCeptor jwtInterCeptor(){
+//        return new JwtInterCeptor(getRequestMeta());
+//    }
 }
